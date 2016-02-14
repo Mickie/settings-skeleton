@@ -1,0 +1,79 @@
+div.login-div{
+    text-align:center;
+    margin-top:100px;
+}
+nav{
+    text-align:left;
+}
+nav ul{
+    margin:0;
+}
+nav li{
+    display:inline-block;
+    line-height:58px;
+    height:58px;
+    width:150px;
+    padding:0 10px;
+    text-align:center;
+    font-size:20px;
+}
+nav a{
+    color:rgba(255,255,255,.6);
+}
+nav li{
+    margin-right:-5px;
+}
+nav a:hover{
+    cursor:pointer;
+    text-decoration:none;
+    color:white;
+}
+nav li:hover{
+    background-color:black;
+    color:white;
+}
+main{
+    width:90%;
+    margin:0 auto;
+    text-align:center;
+}
+div.form-group{
+    margin-top:20px;
+}
+li.active{
+    background-color:black;
+}
+li.active a{
+    color:white;
+    text-decoration:none;
+}
+table th,table td{
+    text-align:center;
+}
+label.lft{
+    display:inline-block;
+    width:200px;
+    text-align:right;
+    margin-right:20px;
+    float:left;
+    margin-top:10px;
+}
+input.rt{
+    width:280px;
+    margin-left:-27px;
+    margin-top:10px;
+}
+.hide{
+    display:none;
+}
+@media(min-width:785px){
+    input.ajustInput{
+        margin-left:-26px;
+    }
+    div.ajustDiv{
+        margin-left:-59px;
+    }
+    input.ajustFile{
+        margin-left:-20px;
+    }
+}

@@ -1,0 +1,127 @@
+<h2>红包券列表</h2>
+<button type="button" class="btn btn-primary" style="float:right;margin-bottom:15px;" ng-click="newVoucher()">新增券</button>
+<table class="table table-hover table-bordered">
+    <tbody>
+        <tr>
+            <th>提交时间</th><th>启用时间</th><th>红包名称</th><th>红包ID</th><th>面值，概率，使用限制</th><th>有效期</th><th>状态</th><th>操作</th>
+        </tr>
+        <tr ng-repeat="data in datas">
+            <td>{{data.createTime|date:"yyyy-MM-dd HH:mm:ss"}}</td>
+            <td>{{data.name}}</td>
+            <td>{{data.id}}</td>
+            <td>{{data.config}}</td>
+            <td>{{data.period}}天</td>
+            <td >
+                <span ng-show="data.status==1">使用中</span>
+                <span ng-show="data.status==2">已下线</span>
+                <span ng-show="data.status==0">未启用</span>
+            </td>
+            <td ng-show="data.status==0"><a ng-click="editPro($index)"  style="margin-right:5px;display:none;">编辑</a><a ng-click="activate($index)">启用</a></td>
+            <td ng-show="data.status==1"><a ng-click="disAct($index)">下线</a></td>
+            <td ng-show="data.status==2">{{data.reason}}</td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="modal fade" id="newModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">新建红包券</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label for="proName" class="col-sm-3 control-label">红包名称：</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="proName" ng-model="data.name" value="HB0001" >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="proDuration" class="col-sm-3 control-label">有效期：</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" id="proDuration" ng-model="data.period">
+                                <option value="30">30天</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="proVal1" class="col-sm-3 control-label">红包面值：</label>
+                        <div class="col-sm-8" style="width:20%;">
+                            <input type="text" class="form-control" id="proVal1" ng-model="data.minValue" style="text-align:center;">
+                        </div>
+                        <div class="col-sm-1" style="height:34px;padding:6px 0;line-height:1.42857143;width:20px;margin-right:-14px;margin-left:-14px;">--</div>
+                        <label for="proVal2" class="col-sm-3 control-label sr-only" style="display:none;"></label>
+                        <div class="col-sm-8" style="width:20%;margin-left:-9px;">
+                            <input type="text" class="form-control" id="proVal2" ng-model="data.maxValue" style="text-align:center;">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="proRatio" class="col-sm-3 control-label">概率：</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="proRatio" ng-model="data.prob" >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="proReq" class="col-sm-3 control-label">使用限制：</label>
+                        <div class="col-sm-1" style="height:34px;padding:6px 0;line-height:1.42857143;width:57px;margin-right:-14px;">答疑</div>
+                        <div class="col-sm-2" style="margin-left:-10px;">
+                            <input type="text" class="form-control" id="proReq" ng-model="data.limit" style="text-align:center;">
+                        </div>
+                        <div class="col-sm-2" style="height:34px;padding:6px 0;line-height:1.42857143;margin-left:-10px;width:79px;">分钟可使用</div>
+                    </div>
+
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" ng-click="submitNew()">确定</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="editModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">编辑红包券</h4>
+            </div>
+            <div class="modal-body">
+                这是个预留的编辑modal
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary">确定</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="delModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">活动下线</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label for="reason" class="col-sm-3 control-label">下线原因：</label>
+                        <div class="col-sm-8">
+                            <textarea  class="form-control" id="reason" ng-model="reason"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" ng-click="submitDel()">确定</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

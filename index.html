@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html ng-app="proCustom">
+<head>
+    <meta charset="UTF-8">
+    <title>后台</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/main.css" type="text/css">
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/angular/angular.min.js"></script>
+    <script type="text/javascript" src="js/angular/angular-route.min.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-inverse " ng-controller="indexCtrl">
+    <ul>
+        <li ng-class="{active:page == 1}"><a href="#/voucherLists" ng-click="page = 1">红包券列表</a></li>
+        <li ng-class="{active:page == 2}"><a href="#/shareLists" ng-click="page = 2">分享页面列表</a></li>
+        <li ng-class="{active:page == 3}"><a href="#/newsLists" ng-click="page = 3">线上分享列表</a></li>
+        <li style="float:right;"><a href="#/login" ng-show="!!usr">登出</a></li>
+    </ul>
+</nav>
+<main>
+    <div ng-view style="max-width:1000px;min-width:600px;margin:0 auto;"></div>
+</main>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+</body>
+</html>

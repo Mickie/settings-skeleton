@@ -1,0 +1,121 @@
+<h2>分享页面列表</h2>
+<button type="button" class="btn btn-primary" style="float:right;margin-bottom:15px;" ng-click="newShare()">新建分享页面</button>
+<table class="table table-hover table-bordered">
+    <tbody>
+    <tr>
+        <th>提交时间</th><th>页面标题</th><th>页面ID</th><th>图片URL</th><th>红包id</th><th>红包数量</th><th>状态</th><th>操作</th>
+    </tr>
+    <tr ng-repeat="data in datas">
+        <td>{{data.createTime|date:"yyyy-MM-dd HH:mm:ss"}}</td>
+        <td>{{data.title}}</td>
+        <td>{{data.id}}</td>
+        <td>{{data.imgUrl}}</td>
+        <td>{{data.bonusId}}</td>
+        <td>{{data.amount}}</td>
+        <td>
+            <span ng-show="data.status == 0">未启用</span>
+            <span ng-show="data.status == 1">使用中</span>
+            <span ng-show="data.status == 2">已下线</span>
+        </td>
+        <td ng-show="data.status=='1'"><a ng-click="disAct($index)" style="margin-right:5px;">下线</a><a target="_blank" ng-href="">预览</a></td>
+        <td ng-show="data.status=='2'"><a ng-click="checkAct($index)" style="margin-right:5px;">查看下线原因</a><a target="_blank" ng-href="">预览</a></td>
+    </tr>
+    </tbody>
+</table>
+
+<div class="modal fade" id="newModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">新建分享页面</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label for="pageTitle" class="col-sm-2 control-label">页面标题:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="pageTitle" ng-model="data.title" placeholder="输入分享后的标题">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="bannerUrl" class="col-sm-2 control-label">图片URL:</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="bannerUrl" ng-model="data.imgUrl" >
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="file" class="form-control" id="uploadImg" style="border:transparent;box-shadow:none;margin-left:-20px;"
+                                    onchange="angular.element(this).scope().uploadImg(this)">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="proId" class="col-sm-2 control-label">红包ID:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="proId"  ng-model="data.bonusId" placeholder="输入红包的id" >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="num" class="col-sm-2 control-label">用户领取次数:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="num" ng-model="data.amount" placeholder="输入红包数量">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" ng-click="submitShare()">确定</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="delModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">页面下线</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label for="reason" class="col-sm-3 control-label">下线原因：</label>
+                        <div class="col-sm-8">
+                            <textarea  class="form-control" id="reason" ng-model="reason"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" ng-click="submitDel()">确定</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="editModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">查看下线详情</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label for="reason1" class="col-sm-3 control-label">下线原因：</label>
+                        <div class="col-sm-8">
+                            <textarea  class="form-control" id="reason1" ng-model="curData.reason" readonly></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" ng-click="">确定</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
